@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Egret</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="full-screen" content="true" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="360-fullscreen" content="true" />
+    <link rel="shortcut icon" href="<%= favicon %>">
+    <style>
+        html, body {
+            -ms-touch-action: none;
+            background: #888888;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+    
+    <!-- 生产环境下把多个libs合并为vendor.js -->
+    <% if (isPrd) { %>
+        <script src="./vendor.js"></script>
+    <% } else { %>
+    <% libs.forEach(function(url) { %>
+        <script src="<%= url %>"></script><% }) %>
+    <% } %>
+</head>
+
+<body>
+    <div style="margin:auto; width:100%; height:100%;" class="egret-player"
+        data-entry-class="<%= setting.entryClass %>"
+        data-orientation="<%= setting.orientation %>"
+        data-scale-mode="<%= setting.scaleMode %>"
+        data-frame-rate="<%= setting.frameRate %>"
+        data-content-width="<%= setting.contentWidth %>"
+        data-content-height="<%= setting.contentHeight %>"
+        data-multi-fingered="<%= setting.multiFingered %>"
+        data-show-fps="<%= setting.showFps %>" data-show-log="<%= setting.showLog %>"
+        data-show-fps-style="<%= setting.fpsStyle %>">
+    </div>
+<script>
+    /**
+     * {
+     * "renderMode":, //Engine rendering mode, "canvas" or "webgl"
+     * "audioType": 0 //Use the audio type, 0: default, 2: web audio, 3: audio
+     * "antialias": //Whether the anti-aliasing is enabled in WebGL mode, true: on, false: off, defaults to false
+     * "calculateCanvasScaleFactor": //a function return canvas scale factor
+     * }
+     **/
+    egret.runEgret({ renderMode: "webgl", audioType: 0, calculateCanvasScaleFactor:function(context) {
+        var backingStore = context.backingStorePixelRatio ||
+            context.webkitBackingStorePixelRatio ||
+            context.mozBackingStorePixelRatio ||
+            context.msBackingStorePixelRatio ||
+            context.oBackingStorePixelRatio ||
+            context.backingStorePixelRatio || 1;
+        return (window.devicePixelRatio || 1) / backingStore;
+    }});
+</script>
+</body>
+
+</html>
