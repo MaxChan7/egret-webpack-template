@@ -1,7 +1,7 @@
 {
   "entryClass": "Main",
   "orientation": "auto",
-  "scaleMode": "fixedNarrow",
+  "scaleMode": "showAll",
   "frameRate": 30,
   "contentWidth": 750,
   "contentHeight": 1334,

@@ -47,6 +47,6 @@ module.exports = {
         libs: copyLibs,
       },
     }),
-    new CopyWebpackPlugin([{from: 'src/assets', to: 'assets'}].concat(devCopyLibs))
+    new CopyWebpackPlugin([{from: 'src/resource', to: 'resource'}].concat(devCopyLibs))
   ]
 }

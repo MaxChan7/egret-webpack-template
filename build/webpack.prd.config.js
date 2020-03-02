@@ -42,7 +42,7 @@ module.exports = {
         libs: copyLibs,
       },
     }),
-    new CopyWebpackPlugin([{ from: 'src/assets', to: 'assets' }]),
+    new CopyWebpackPlugin([{ from: 'src/resource', to: 'resource' }]),
     new MergeIntoSingleFilePlugin({
       files: {'vendor.js': prodMergeLibs }
     })

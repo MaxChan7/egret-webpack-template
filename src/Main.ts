@@ -73,7 +73,7 @@ class Main extends eui.UILayer {
         try {
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
-            await RES.loadConfig('assets/default.res.json', 'assets/');
+            await RES.loadConfig('resource/default.res.json', 'resource/');
             await this.loadTheme();
             await RES.loadGroup('preload', 0, loadingView);
             this.stage.removeChild(loadingView);
@@ -87,7 +87,7 @@ class Main extends eui.UILayer {
         return new Promise((resolve, reject) => {
             // load skin theme configuration file, you can manually modify the file. And replace the default skin.
             //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-            let theme = new eui.Theme("assets/default.thm.json", this.stage);
+            let theme = new eui.Theme("resource/default.thm.json", this.stage);
             theme.addEventListener(eui.UIEvent.COMPLETE, () => {
                 resolve();
             }, this);
@@ -174,17 +174,6 @@ class Main extends eui.UILayer {
     }
 
     /**
-     * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
-     * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
-     */
-    private createBitmapByName(name: string) {
-        let result = new egret.Bitmap();
-        let texture: egret.Texture = RES.getRes(name);
-        result.texture = texture;
-        return result;
-    }
-
-    /**
      * 描述文件加载成功，开始播放动画
      * Description file loading is successful, start to play the animation
      */
@@ -225,6 +214,7 @@ class Main extends eui.UILayer {
         panel.verticalCenter = 0;
         this.addChild(panel);
     }
+
 }
 
 (window as any).Main = Main;
