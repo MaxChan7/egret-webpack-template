@@ -9,6 +9,7 @@ const setting = JSON.parse(fs.readFileSync('./build/setting.json'));
 
 module.exports = {
   mode: 'production',
+  devtool: 'source-map',
   entry: {
     main: path.resolve(__dirname, '../src/Main')
   },
@@ -37,7 +38,6 @@ module.exports = {
       inject: 'head',
       templateParameters: {
         isPrd: true,
-        favicon: 'src/favicon.ico',
         setting,
         libs: copyLibs,
       },

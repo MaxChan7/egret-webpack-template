@@ -28,6 +28,8 @@
 //////////////////////////////////////////////////////////////////////////////////////
 import { createBitmapByName, AssetAdapter, ThemeAdapter } from './utils/utils';
 import LoadingUI from './scene/LoadingUI';
+const isPrd = process.env.NODE_ENV === 'production'
+const CDN_PREFIX_URL = 'http://www.baidu.com/'
 
 class Main extends eui.UILayer {
 
@@ -69,7 +71,9 @@ class Main extends eui.UILayer {
         try {
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
-            await RES.loadConfig('resource/default.res.json', 'resource/');
+            // 资源配置根地址配置，生产环境替换为CDN前缀
+            const resourceRoot = isPrd ? CDN_PREFIX_URL : '/'
+            await RES.loadConfig('resource/default.res.json', resourceRoot);
             await this.loadTheme();
             await RES.loadGroup('preload', 0, loadingView);
             this.stage.removeChild(loadingView);
@@ -83,7 +87,10 @@ class Main extends eui.UILayer {
         return new Promise((resolve, reject) => {
             // load skin theme configuration file, you can manually modify the file. And replace the default skin.
             //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-            let theme = new eui.Theme("resource/default.thm.json", this.stage);
+            // 资源配置根地址配置，生产环境替换为CDN前缀
+            EXML.prefixURL = isPrd ? CDN_PREFIX_URL : ''
+            const themeConfigPrefixUrl = isPrd ? CDN_PREFIX_URL : ''
+            let theme = new eui.Theme(`${themeConfigPrefixUrl}resource/default.thm.json`, this.stage);
             theme.addEventListener(eui.UIEvent.COMPLETE, () => {
                 resolve();
             }, this);

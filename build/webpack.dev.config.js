@@ -42,7 +42,6 @@ module.exports = {
       inject: 'head',
       templateParameters: {
         isPrd: false,
-        favicon: 'src/favicon.ico',
         setting,
         libs: copyLibs,
       },
